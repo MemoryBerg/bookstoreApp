@@ -1,0 +1,47 @@
+<%= link_to 'Home', welcome_index_path %>
+<%= link_to 'Active users', controller: 'users' %>
+<%= link_to 'New user', controller: 'users' %>
+<% if @role %>
+  <%= link_to 'New book', new_book_path %>
+  <%= link_to 'Orders', orders_path %>
+<% end %>
+
+<%= render 'cart' %>
+<h1>All books</h1>
+
+<%= render 'filter' %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Genre</th>
+    <th>Price, $</th>
+  </tr>
+
+  <% @books.each do |book| %>
+    <tr>
+      <td><%= book.title %></td>
+      <td><%= book.author %></td>
+      <td><%= book.genre %></td>
+      <td><%= book.price.to_f %></td>
+      <td><%= link_to 'Show', book_path(book) %></td>
+      <% if @role %>
+        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= button_to 'Destroy', book_path(book.id),
+              method: :delete,
+              data: { confirm: 'Are you sure?' }%></td>
+      <% end %>
+      <td>
+      <% if @cart.include?(book) %>
+          <p><%= button_to 'Remove from cart', remove_from_cart_path(book.id), method: :delete %></p>
+      <%else %>
+        <p><%= link_to 'Add to cart', add_to_cart_path(book.id), method: :get %></p>
+      <% end %>
+      </td>
+      <td><%= button_to 'Buy now', checkout_create_path, method: :post, params: { id: book.id } %>
+      </td>
+
+    </tr>
+  <% end %>
+</table>

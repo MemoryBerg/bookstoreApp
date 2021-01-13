@@ -1,0 +1,5 @@
+<% if @cart.include?(@book) %>
+  <p><%= button_to 'Remove from cart', remove_from_cart_path(@book[:id]), method: :delete %></p>
+<%else %>
+  <p><%= link_to 'Add to cart', add_to_cart_path(@book[:id]), method: :get %></p>
+<% end %>

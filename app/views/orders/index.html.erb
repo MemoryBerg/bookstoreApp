@@ -1,0 +1,38 @@
+<%= link_to 'Home', welcome_index_path %>
+<%= link_to 'Active users', controller: 'users' %>
+<%= link_to 'New user', controller: 'users' %>
+
+<h1>Orders</h1>
+<%= form_with url: '/orders/index', method: :get, local: true do |form| %>
+  <%= form.label :select_status %>
+  <%= form.select :status, ["In progress", "Delivered"] %>
+  <%= form.submit "Select" %>
+  <%= link_to "All orders", orders_path %>
+<% end %>
+<table>
+  <tr>
+    <th>Order id</th>
+    <th>User email</th>
+    <th>Order</th>
+    <th>Status</th>
+    <th>Change status</th>
+  </tr>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order[:id] %></td>
+      <td><%= User.find(order[:user_id])[:email] %></td>
+      <% order[:order].each do |book| %>
+        <% @books_in_order << Book.find(book.to_i)[:title] %>
+      <% end %>
+      <td><%= @books_in_order.join(', ') %></td>
+      <td><%= order[:status] %></td>
+      <td>
+        <%unless order[:status] === 'Delivered'%>
+          <%= link_to 'Delivered', '/orders/index/done/'+order[:id].to_s, method: :get, id: order[:id] %>
+          <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Books', books_path %>

@@ -1,0 +1,15 @@
+<details>
+  <summary>Shopping Cart</summary>
+  <% if @cart.empty? %>
+    <p>Cart is empty</p>
+  <% else %>
+    <ul>
+      <% @cart.each do |book| %>
+        <% $cart_sum += book[:price] %>
+        <li><%= book.title %> <%= link_to 'Remove from cart', remove_from_cart_path(book.id), method: :delete %></li>
+    <% end %>
+    </ul>
+    <p>Total sum: <%= $cart_sum %></p>
+    <%= button_to 'Order', orders_path, method: :post, params: {books: @cart} %>
+  <% end %>
+</details>

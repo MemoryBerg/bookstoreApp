@@ -1,0 +1,37 @@
+<%= form_with scope: :user, url: users_path, local: true do |form| %>
+
+
+  <p>
+    <%= form.label :firstName %><br>
+    <%= form.text_field :firstname %>
+  </p>
+
+  <p>
+    <%= form.label :lastName %><br>
+    <%= form.text_field :lastname %>
+  </p>
+
+  <p>
+    <%= form.label :address %><br>
+    <%= form.text_area :address %>
+  </p>
+
+  <p>
+    <%= form.label :email %><br>
+    <%= form.email_field :email %>
+  </p>
+
+<!--  <p>-->
+<!--    <%#= form.label :orders %><br>-->
+    <%#= form.text_field :orders %>
+<!--  </p>-->
+
+  <p hidden="true">
+    <%= form.label :status %><br>
+    <%= form.check_box(:user, { checked: true }) %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

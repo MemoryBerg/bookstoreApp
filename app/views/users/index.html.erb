@@ -1,0 +1,23 @@
+<h1>Active users</h1>
+<table>
+  <tr>
+    <th>
+      Email
+    </th>
+    <th>
+      Orders
+    </th>
+  </tr>
+  <% @all_users.each do |user| %>
+    <tr>
+      <td>
+        <%= user[:email] %>
+      </td>
+      <td>
+        <%= user[:orders] %>
+      </td>
+
+    </tr>
+  <% end %>
+</table>
+<%= link_to 'Back', controller: 'books' %>

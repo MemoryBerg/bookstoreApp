@@ -1,0 +1,6 @@
+<%= form_with url: '/books/index', method: :get, local: true do |form| %>
+  <%= form.label :select_genre %>
+  <%= form.select :genre, ["Novel", "Fantasy", "Horror", "Detective", "Tale"] %>
+  <%= form.submit "Select" %>
+  <%= link_to "All books", books_path %>
+<% end %>
